@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.curso.java.completo</groupId>
-    <artifactId>springbootwebwervice</artifactId>
+    <artifactId>springbootwebservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springbootwebwervice</name>
-    <description>springbootwebwervice</description>
+    <name>springbootwebservice</name>
+    <description>springbootwebservice</description>
     <url/>
     <licenses>
         <license/>
