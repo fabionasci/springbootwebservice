@@ -1,4 +1,4 @@
-package com.curso.java.completo.springbootwebwervice;
+package com.curso.java.completo.springbootwebservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

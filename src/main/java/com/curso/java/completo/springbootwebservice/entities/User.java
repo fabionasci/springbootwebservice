@@ -1,18 +1,28 @@
-package com.curso.java.completo.springbootwebwervice.entities;
+package com.curso.java.completo.springbootwebservice.entities;
+
+import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false, unique = true)
     private String phone;
+    @Column(nullable = false)
     private String password;
 
     public User() {
