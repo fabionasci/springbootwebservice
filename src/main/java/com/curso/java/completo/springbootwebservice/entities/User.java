@@ -1,6 +1,7 @@
 package com.curso.java.completo.springbootwebservice.entities;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -27,6 +28,7 @@ public class User implements Serializable {
     private String phone;
     @Column(nullable = false)
     private String password;
+    @JsonIgnore
     @OneToMany( mappedBy = "client" )
     private List<Order> orders = new ArrayList<>();
 
