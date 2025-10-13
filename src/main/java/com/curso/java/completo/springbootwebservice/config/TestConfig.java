@@ -1,9 +1,13 @@
 package com.curso.java.completo.springbootwebservice.config;
 
+import com.curso.java.completo.springbootwebservice.entities.Category;
 import com.curso.java.completo.springbootwebservice.entities.Order;
+import com.curso.java.completo.springbootwebservice.entities.Product;
 import com.curso.java.completo.springbootwebservice.entities.User;
 import com.curso.java.completo.springbootwebservice.enums.OrderStatus;
+import com.curso.java.completo.springbootwebservice.repositories.CategoryRepository;
 import com.curso.java.completo.springbootwebservice.repositories.OrderRepository;
+import com.curso.java.completo.springbootwebservice.repositories.ProductRepository;
 import com.curso.java.completo.springbootwebservice.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +24,15 @@ public class TestConfig implements CommandLineRunner {
 
     private final OrderRepository orderRepository;
 
-    public TestConfig(UserRepository userRepository, OrderRepository orderRepository) {
+    private final CategoryRepository categoryRepository;
+
+    private final ProductRepository productRepository;
+
+    public TestConfig(UserRepository userRepository, OrderRepository orderRepository, CategoryRepository categoryRepository, ProductRepository productRepository) {
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
+        this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -44,5 +54,13 @@ public class TestConfig implements CommandLineRunner {
         Order o6 = new Order(null, java.time.Instant.parse("2023-08-25T14:45:50Z"), OrderStatus.SHIPPED, u2);
 
         orderRepository.saveAll(Arrays.asList(o1, o2, o3, o4, o5, o6));
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+
+
     }
 }
