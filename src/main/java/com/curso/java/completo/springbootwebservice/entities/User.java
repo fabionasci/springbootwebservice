@@ -32,6 +32,7 @@ public class User implements Serializable {
     @OneToMany( mappedBy = "client" )
     private List<Order> orders = new ArrayList<>();
 
+
     public User() {
     }
 
@@ -42,6 +43,7 @@ public class User implements Serializable {
         this.phone = phone;
         this.password = password;
     }
+
 
     public Long getId() {
         return id;

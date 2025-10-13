@@ -3,7 +3,9 @@ package com.curso.java.completo.springbootwebservice.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Category implements Serializable {
@@ -14,7 +16,8 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Product product;
+    @Transient
+    private Set<Product> product = new HashSet<>();
 
 
     public Category() {}
@@ -23,6 +26,7 @@ public class Category implements Serializable {
         this.id = id;
         this.name = name;
     }
+
 
     public void setId(Long id) {
         this.id = id;
@@ -40,13 +44,10 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public Product getProduct() {
+    public Set<Product> getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     @Override
     public boolean equals(Object o) {

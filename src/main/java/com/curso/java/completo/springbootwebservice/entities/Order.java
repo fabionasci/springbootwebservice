@@ -30,6 +30,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private User client;
 
+
     public Order() {
     }
 
@@ -39,6 +40,7 @@ public class Order implements Serializable {
         setStatus(status);
         this.client = client;
     }
+
 
     public Long getId() {
         return id;

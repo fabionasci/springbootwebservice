@@ -3,9 +3,12 @@ package com.curso.java.completo.springbootwebservice.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@Table(name = "tb_product")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -17,19 +20,20 @@ public class Product implements Serializable {
     private String description;
     private Double price;
     private String imgUrl;
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @Transient
+    private Set<Category> categories = new HashSet<>();
 
 
     public Product() {}
 
-    public Product(String name, String description, Double price, String imgUrl) {
+    public Product(Long id, String name, String description, Double price, String imgUrl) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
     }
+
 
     public void setId(Long id) {
         this.id = id;
@@ -71,13 +75,10 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public Category getCategory() {
-        return category;
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     @Override
     public boolean equals(Object o) {
