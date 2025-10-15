@@ -1,5 +1,6 @@
 package com.curso.java.completo.springbootwebservice.services;
 
+import com.curso.java.completo.springbootwebservice.dtos.UserDto;
 import com.curso.java.completo.springbootwebservice.entities.User;
 import com.curso.java.completo.springbootwebservice.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +28,9 @@ public class UserService {
         return obj.orElse(null);
     }
 
+    public void create(UserDto userDto) {
+
+        User user = new User(null, userDto.getName(), userDto.getEmail(), userDto.getPhone(), userDto.getPassword());
+        userRepository.save(user);
+    }
 }
