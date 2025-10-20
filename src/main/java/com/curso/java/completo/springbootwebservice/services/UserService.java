@@ -28,9 +28,13 @@ public class UserService {
         return obj.orElse(null);
     }
 
-    public void create(UserDto userDto) {
+    public User create(UserDto userDto) {
 
         User user = new User(null, userDto.getName(), userDto.getEmail(), userDto.getPhone(), userDto.getPassword());
-        userRepository.save(user);
+        return userRepository.save(user);
+    }
+
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 }
