@@ -3,6 +3,7 @@ package com.curso.java.completo.springbootwebservice.services;
 import com.curso.java.completo.springbootwebservice.dtos.UserDto;
 import com.curso.java.completo.springbootwebservice.entities.User;
 import com.curso.java.completo.springbootwebservice.repositories.UserRepository;
+import com.curso.java.completo.springbootwebservice.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> obj = userRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User create(UserDto userDto) {
