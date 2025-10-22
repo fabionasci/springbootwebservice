@@ -3,8 +3,10 @@ package com.curso.java.completo.springbootwebservice.services;
 import com.curso.java.completo.springbootwebservice.dtos.UserDto;
 import com.curso.java.completo.springbootwebservice.entities.User;
 import com.curso.java.completo.springbootwebservice.repositories.UserRepository;
+import com.curso.java.completo.springbootwebservice.services.exceptions.DataBaseException;
 import com.curso.java.completo.springbootwebservice.services.exceptions.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +38,12 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        userRepository.deleteById(id);
+       userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+       try {
+           userRepository.deleteById(id);
+       } catch (DataIntegrityViolationException e) {
+           throw new DataBaseException(e.getMessage());
+       }
     }
 
     public User update(Long id, UserDto userDto) {
