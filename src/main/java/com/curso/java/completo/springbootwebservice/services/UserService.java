@@ -5,6 +5,7 @@ import com.curso.java.completo.springbootwebservice.entities.User;
 import com.curso.java.completo.springbootwebservice.repositories.UserRepository;
 import com.curso.java.completo.springbootwebservice.services.exceptions.DataBaseException;
 import com.curso.java.completo.springbootwebservice.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -32,14 +33,13 @@ public class UserService {
     }
 
     public User create(UserDto userDto) {
-
         User user = new User(null, userDto.getName(), userDto.getEmail(), userDto.getPhone(), userDto.getPassword());
         return userRepository.save(user);
     }
 
     public void delete(Long id) {
-       userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
        try {
+           userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
            userRepository.deleteById(id);
        } catch (DataIntegrityViolationException e) {
            throw new DataBaseException(e.getMessage());
@@ -47,9 +47,13 @@ public class UserService {
     }
 
     public User update(Long id, UserDto userDto) {
-        User entity = userRepository.getReferenceById(id);
-        updateData(entity, userDto);
-        return userRepository.save(entity);
+        try {
+            User entity = userRepository.getReferenceById(id);
+            updateData(entity, userDto);
+            return userRepository.save(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(User entity, UserDto userDto) {
